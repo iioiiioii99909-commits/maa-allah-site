@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مع الله — برنامج المحتوى الإيماني</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+  :root{
+    --ink:#0b2545;
+    --ink-2:#123b6b;
+    --sky:#7fd1e8;
+    --sky-light:#eaf8fc;
+    --bg:#f6fafc;
+    --card:#ffffff;
+    --text:#0b2545;
+    --muted:#5c7a97;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.8;
+  }
+
+  header.hero{
+    background:linear-gradient(135deg, var(--ink) 0%, var(--ink-2) 55%, #1a5a94 100%);
+    color:#fff;
+    padding:64px 24px 80px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 80% 20%, rgba(127,209,232,0.25), transparent 60%);
+  }
+  header.hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.4rem);
+    font-weight:700;
+    margin:0 0 12px;
+    position:relative;
+    z-index:1;
+  }
+  header.hero p.tagline{
+    font-size:1.15rem;
+    color:var(--sky);
+    max-width:640px;
+    margin:0 auto;
+    position:relative;
+    z-index:1;
+  }
+  header.hero .badge{
+    display:inline-block;
+    margin-top:22px;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.25);
+    color:#fff;
+    padding:8px 20px;
+    border-radius:999px;
+    font-size:0.9rem;
+    position:relative;
+    z-index:1;
+  }
+
+  main{max-width:1080px;margin:0 auto;padding:56px 24px 100px;}
+
+  section{margin-bottom:64px;}
+  section h2{
+    font-size:1.6rem;
+    font-weight:700;
+    color:var(--ink);
+    border-right:4px solid var(--sky);
+    padding-right:14px;
+    margin-bottom:28px;
+  }
+
+  .overview-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:20px;
+  }
+  .overview-card{
+    background:var(--card);
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 4px 20px rgba(11,37,69,0.06);
+    border:1px solid #e5eef4;
+  }
+  .overview-card .num{
+    font-size:2rem;
+    font-weight:700;
+    color:var(--ink-2);
+  }
+  .overview-card .label{color:var(--muted); font-size:0.95rem; margin-top:6px;}
+
+  .content-types{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+    gap:18px;
+  }
+  .type-card{
+    background:var(--sky-light);
+    border:1px solid #d7eef5;
+    border-radius:14px;
+    padding:22px;
+    text-align:center;
+  }
+  .type-card .count{
+    display:inline-block;
+    background:var(--ink);
+    color:#fff;
+    border-radius:999px;
+    padding:4px 14px;
+    font-weight:700;
+    font-size:0.85rem;
+    margin-bottom:10px;
+  }
+  .type-card h3{margin:6px 0 8px; font-size:1.05rem; color:var(--ink);}
+  .type-card p{color:var(--muted); font-size:0.9rem; margin:0;}
+
+  .phases{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    counter-reset:phase;
+  }
+  .phase{
+    flex:1 1 220px;
+    background:var(--card);
+    border:1px solid #e5eef4;
+    border-radius:14px;
+    padding:22px 20px;
+    position:relative;
+    margin:8px;
+  }
+  .phase::before{
+    counter-increment:phase;
+    content:counter(phase);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--ink-2);
+    color:#fff;
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .phase h3{margin:0 0 8px; font-size:1.02rem; color:var(--ink);}
+  .phase p{color:var(--muted); font-size:0.88rem; margin:0;}
+
+  table.roles{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--card);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 4px 20px rgba(11,37,69,0.06);
+  }
+  table.roles th, table.roles td{
+    padding:14px 18px;
+    text-align:right;
+    border-bottom:1px solid #eef3f7;
+    font-size:0.95rem;
+  }
+  table.roles th{
+    background:var(--ink);
+    color:#fff;
+    font-weight:600;
+  }
+  table.roles tr:last-child td{border-bottom:none;}
+  table.roles td.role{color:var(--ink-2); font-weight:600;}
+
+  .identity{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .swatch{
+    width:120px;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 14px rgba(11,37,69,0.1);
+  }
+  .swatch .color{height:70px;}
+  .swatch .label{
+    background:#fff;
+    padding:8px;
+    text-align:center;
+    font-size:0.78rem;
+    color:var(--muted);
+  }
+
+  .timeline{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(90px,1fr));
+    gap:10px;
+  }
+  .month{
+    background:var(--card);
+    border:1px solid #e5eef4;
+    border-radius:10px;
+    padding:12px 6px;
+    text-align:center;
+    font-size:0.82rem;
+    color:var(--ink-2);
+    font-weight:600;
+  }
+
+  footer{
+    text-align:center;
+    padding:36px 24px;
+    color:var(--muted);
+    font-size:0.85rem;
+    border-top:1px solid #e5eef4;
+  }
+  footer strong{color:var(--ink);}
+
+  @media (max-width:640px){
+    .phases{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>مع الله</h1>
+  <p class="tagline">برنامج محتوى إيماني دعوي شهري، يصبّ في تزكية النفس — على مدار عام هجري كامل</p>
+  <span class="badge">موسم ١٤٤٨ هـ · ١٢ مقطعًا شهريًا</span>
+</header>
+
+<main>
+
+  <section>
+    <h2>نظرة عامة</h2>
+    <div class="overview-grid">
+      <div class="overview-card"><div class="num">١٢</div><div class="label">مقطعًا على مدار العام</div></div>
+      <div class="overview-card"><div class="num">١٢</div><div class="label">شهرًا من الإنتاج والنشر المتواصل</div></div>
+      <div class="overview-card"><div class="num">٣</div><div class="label">أنواع محتوى متنوعة كل شهر</div></div>
+      <div class="overview-card"><div class="num">١٤٤٨هـ</div><div class="label">الموسم الهجري المستهدف</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>أنواع المحتوى الشهرية</h2>
+    <div class="content-types">
+      <div class="type-card">
+        <span class="count">٤ / شهريًا</span>
+        <h3>أنميشن</h3>
+        <p>مقاطع متحركة معدّة ومكتوبة خصيصًا للبرنامج</p>
+      </div>
+      <div class="type-card">
+        <span class="count">٤ / شهريًا</span>
+        <h3>موشن بصري</h3>
+        <p>موشن جرافيك مصاحب بتسجيلات صوتية لمشايخ</p>
+      </div>
+      <div class="type-card">
+        <span class="count">٤ / شهريًا</span>
+        <h3>مقتطفات إيمانية</h3>
+        <p>مقتطفات قصيرة تلامس القلب وتُعين على تزكية النفس</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>مراحل الإنتاج</h2>
+    <div class="phases">
+      <div class="phase">
+        <h3>إعداد المحتوى</h3>
+        <p>بحث واختيار المقاطع، كتابة النصوص، والتسجيل الصوتي</p>
+      </div>
+      <div class="phase">
+        <h3>الإنتاج</h3>
+        <p>مونتاج، موشن، وتحريك (أنميشن) للمواد المُعدّة</p>
+      </div>
+      <div class="phase">
+        <h3>النشر والجدولة</h3>
+        <p>جدولة المحتوى ونشره على القنوات المستهدفة شهريًا</p>
+      </div>
+      <div class="phase">
+        <h3>دفع المستحقات</h3>
+        <p>رفع ومتابعة مستحقات المبدعين والفنيين شهريًا</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>الجدول الزمني — عام ١٤٤٨ هـ</h2>
+    <div class="timeline">
+      <div class="month">محرم</div>
+      <div class="month">صفر</div>
+      <div class="month">ربيع الأول</div>
+      <div class="month">ربيع الآخر</div>
+      <div class="month">جمادى الأولى</div>
+      <div class="month">جمادى الآخرة</div>
+      <div class="month">رجب</div>
+      <div class="month">شعبان</div>
+      <div class="month">رمضان</div>
+      <div class="month">شوال</div>
+      <div class="month">ذو القعدة</div>
+      <div class="month">ذو الحجة</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>فريق العمل والأدوار</h2>
+    <table class="roles">
+      <thead>
+        <tr><th>الدور</th><th>المسؤولية</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="role">باحث المحتوى</td><td>البحث واختيار المقاطع والمواضيع الشهرية</td></tr>
+        <tr><td class="role">الكاتب</td><td>كتابة النصوص والسيناريوهات</td></tr>
+        <tr><td class="role">التعليق الصوتي</td><td>تسجيل الأصوات والتعليق الصوتي</td></tr>
+        <tr><td class="role">الرسم والتحريك</td><td>إنتاج مقاطع الأنميشن</td></tr>
+        <tr><td class="role">المونتاج والموشن</td><td>المونتاج، الموشن جرافيك، والكومبوزيتنغ</td></tr>
+        <tr><td class="role">النشر والجدولة</td><td>جدولة المحتوى ونشره على القنوات</td></tr>
+        <tr><td class="role">المستحقات</td><td>رفع ومتابعة مستحقات الفريق شهريًا</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>الهوية البصرية</h2>
+    <div class="identity">
+      <div class="swatch">
+        <div class="color" style="background:#0b2545;"></div>
+        <div class="label">حبر داكن</div>
+      </div>
+      <div class="swatch">
+        <div class="color" style="background:#7fd1e8;"></div>
+        <div class="label">سماوي فاتح</div>
+      </div>
+      <div class="swatch">
+        <div class="color" style="background:#eaf8fc;"></div>
+        <div class="label">خلفية سماوية</div>
+      </div>
+      <p style="color:var(--muted); font-size:0.9rem; max-width:320px;">
+        الشعار بخط عربي، وخط النصوص IBM Plex Sans Arabic، بألوان بين الحبر الداكن والسماوي الفاتح.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  مشروع <strong>مع الله</strong> — إنتاج <strong>مدوّنة ستوديو</strong>
+</footer>
+
+</body>
+</html>
